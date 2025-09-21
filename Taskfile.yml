@@ -1,0 +1,23 @@
+version: '3'
+
+tasks:
+  default:
+    desc: help
+    deps:
+      - help
+
+  build:
+    desc: Build the gem
+    cmds:
+      - gem build
+
+  release:
+    cmds:
+      - rake release
+    desc: Release a new version of the gem
+
+  help:
+    desc: list all tasks
+    silent: true
+    cmds:
+      - task --list-all
