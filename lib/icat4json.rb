@@ -25,16 +25,15 @@ module ICat4JSON
       end
 
       @icat = ICATData.new
-      @json.each {|k, v| icat[k] = v unless k == "itemdata" }
+      @json.each { |k, v| icat[k] = v unless k == "itemdata" }
       @icat[:itemdata] = []
       @json["itemdata"].each do |itemdata|
         item = ItemData.new
-        itemdata.each do |k,v|
+        itemdata.each do |k, v|
           item[k] = v
         end
         @icat[:itemdata].push item
       end
-      true
     end
 
     private
