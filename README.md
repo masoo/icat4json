@@ -29,7 +29,7 @@ require 'icat4json'
 so,
 
 ```
-data = ICat4JSON::ICat4JSON.new
+data = ICat4JSON.new
 puts data.json
 puts data.icat
 ```

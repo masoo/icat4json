@@ -5,7 +5,7 @@ require "icat4json/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "icat4json"
-  spec.version       = Icat4json::VERSION
+  spec.version       = ICat4JSON::VERSION
   spec.authors       = ["FUNABARA Masao"]
   spec.email         = ["masao@masoo.jp"]
   spec.summary       = "Ruby client for IPA's icat for JSON vulnerability feed"
@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "irb"
 end

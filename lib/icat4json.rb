@@ -34,4 +34,8 @@ module ICat4JSON
       "http://isec-myjvn-feed1.ipa.go.jp/IPARssReader.php?#{Time.now.to_i}&tool=icatw"
     end
   end
+
+  def self.new(*args, &block)
+    ICat4JSON.new(*args, &block)
+  end
 end
