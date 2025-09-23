@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    icat4json (1.0.0)
+    icat4json (1.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -12,9 +12,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (>= 2.0)
+  bundler (~> 2.0)
   icat4json!
-  rake (>= 13.0)
+  rake (~> 13.0)
 
 BUNDLED WITH
    2.5.18
