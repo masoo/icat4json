@@ -11,9 +11,19 @@ module ICat4JSON
     ItemData = Struct.new(:item_title, :item_link, :item_date, :item_identifier)
 
     def initialize
-      uri = URI.parse(icat4json_url)
-      http = Net::HTTP.get(uri)
-      @json = JSON.parse(http)
+      begin
+        uri = URI.parse(icat4json_url)
+        http = Net::HTTP.get(uri)
+      rescue => e
+        raise e, "HTTP request failed: #{e.message}"
+      end
+
+      begin
+        @json = JSON.parse(http)
+      rescue JSON::ParserError => e
+        raise e, "JSON parsing failed: #{e.message}"
+      end
+
       @icat = ICATData.new
       @json.each {|k, v| icat[k] = v unless k == "itemdata" }
       @icat[:itemdata] = []
