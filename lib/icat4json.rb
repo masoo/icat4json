@@ -5,7 +5,7 @@ require "json"
 
 module ICat4JSON
   class ICat4JSON
-    attr_accessor :json, :icat
+    attr_reader :json, :icat
 
     ICATData = Struct.new(:itemdata, :docTitle, :docTitleFix, :docLink, :docDate)
     ItemData = Struct.new(:item_title, :item_link, :item_date, :item_identifier)
