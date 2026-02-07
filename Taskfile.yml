@@ -16,6 +16,16 @@ tasks:
       - rake release
     desc: Release a new version of the gem
 
+  test:
+    desc: Run tests
+    cmds:
+      - bundle exec rake test
+
+  lint:
+    desc: Run linter
+    cmds:
+      - bundle exec standardrb
+
   help:
     desc: list all tasks
     silent: true

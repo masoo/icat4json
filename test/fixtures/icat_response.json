@@ -1,0 +1,20 @@
+{
+  "docTitle": "脆弱性対策情報",
+  "docTitleFix": "脆弱性対策情報（固定）",
+  "docLink": "https://www.ipa.go.jp/security/vuln/icat.html",
+  "docDate": "2024-01-15",
+  "itemdata": [
+    {
+      "item_title": "テスト脆弱性情報1",
+      "item_link": "https://jvndb.jvn.jp/ja/contents/2024/JVNDB-2024-000001.html",
+      "item_date": "2024-01-15",
+      "item_identifier": "JVNDB-2024-000001"
+    },
+    {
+      "item_title": "テスト脆弱性情報2",
+      "item_link": "https://jvndb.jvn.jp/ja/contents/2024/JVNDB-2024-000002.html",
+      "item_date": "2024-01-14",
+      "item_identifier": "JVNDB-2024-000002"
+    }
+  ]
+}

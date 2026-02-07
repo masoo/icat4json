@@ -28,10 +28,25 @@ require 'icat4json'
 
 so,
 
-```
+```ruby
 data = ICat4JSON.new
 puts data.json
 puts data.icat
+```
+
+### Error Handling
+
+```ruby
+begin
+  data = ICat4JSON.new
+  puts data.icat.docTitle
+rescue ICat4JSON::ConnectionError => e
+  puts "Connection failed: #{e.message}"
+rescue ICat4JSON::ParseError => e
+  puts "Failed to parse response: #{e.message}"
+rescue ICat4JSON::Error => e
+  puts "Error: #{e.message}"
+end
 ```
 
 ## Development
