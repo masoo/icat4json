@@ -66,30 +66,12 @@ tasks:
           ERRORS=$((ERRORS + 1))
         fi
 
-        # 2. ブランチ名とバージョンプレフィックスの整合性
-        case "$BRANCH" in
-          master)
-            # 開発ライン。バージョンプレフィックスの制約なし
-            PREFIX=""
-            echo "✔ ブランチ ($BRANCH) は開発ラインのためバージョンプレフィックスの制約なし"
-            ;;
-          [0-9]*_[0-9]*)
-            PREFIX=$(echo "$BRANCH" | sed 's/_/./g')
-            ;;
-          *)
-            echo "✘ 不明なブランチ '$BRANCH' です。リリースブランチ(1_2 形式)または master から実行してください。"
-            ERRORS=$((ERRORS + 1))
-            PREFIX=""
-            ;;
-        esac
-
-        if [ -n "$PREFIX" ]; then
-          if [[ "$VERSION" == "$PREFIX"* ]]; then
-            echo "✔ バージョン ($VERSION) はブランチ ($BRANCH, プレフィックス: $PREFIX) と整合"
-          else
-            echo "✘ バージョン ($VERSION) がブランチ ($BRANCH, プレフィックス: $PREFIX) と不整合"
-            ERRORS=$((ERRORS + 1))
-          fi
+        # 2. ブランチのチェック（リリースは master から行う）
+        if [ "$BRANCH" = "master" ]; then
+          echo "✔ ブランチ ($BRANCH) はリリース可能"
+        else
+          echo "✘ ブランチ '$BRANCH' からはリリースできません。master から実行してください。"
+          ERRORS=$((ERRORS + 1))
         fi
 
         # 3. git タグの重複チェック
@@ -139,35 +121,18 @@ tasks:
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
         CURRENT_VERSION=$(grep -oP 'VERSION = "\K[^"]+' {{.VERSION_FILE}})
 
-        # ブランチ名からバージョンプレフィックスを導出
-        case "$BRANCH" in
-          master)
-            # 開発ライン。バージョンプレフィックスの制約なし
-            PREFIX=""
-            ;;
-          [0-9]*_[0-9]*)
-            PREFIX=$(echo "$BRANCH" | sed 's/_/./g')
-            ;;
-          *)
-            echo "エラー: 不明なブランチ '$BRANCH' です。リリースブランチ(1_2 形式)または master から実行してください。"
-            exit 1
-            ;;
-        esac
+        # リリースは master から行う
+        if [ "$BRANCH" != "master" ]; then
+          echo "エラー: ブランチ '$BRANCH' からはリリースできません。master から実行してください。"
+          exit 1
+        fi
 
         echo "========================================"
         echo "リリース準備"
         echo "========================================"
         echo "ブランチ:           $BRANCH"
-        echo "ブランチプレフィックス: ${PREFIX:-(制約なし)}"
         echo "バージョン:         $VERSION"
         echo "========================================"
-
-        # VERSION がブランチのプレフィックスと一致するか検証
-        if [ -n "$PREFIX" ] && [[ "$VERSION" != "$PREFIX"* ]]; then
-          echo ""
-          echo "エラー: バージョン '$VERSION' はブランチ '$BRANCH' (プレフィックス: $PREFIX) と一致しません。"
-          exit 1
-        fi
 
         # セマンティックバージョニングの形式チェック
         if ! echo "$VERSION" | grep -qP '^\d+\.\d+\.\d+$'; then
